@@ -50,14 +50,49 @@ food_times	k	result
 
 
 
+
+
+
 def solution(food_times, k):
-    temp = k//len(food_times)
+    ft_s = []
     for ind,item in enumerate(food_times):
-      food_times[ind]-=temp
-    k =k% len(food_times)
-    print(food_times)
-    answer=k
+        ft_s.append([item,ind+1])
+    ft_s = sorted(ft_s,key=lambda x : (-x[0],-x[1]))
+    
+    answer = -1
+    while ft_s:
+        tp=ft_s.pop()
+        if (len(ft_s)+1) * tp[0] <= k:
+            for ind,item in enumerate(ft_s):
+                ft_s[ind][0] -= tp[0]
+            k -= (len(ft_s)+1) * tp[0]
+        else:
+            ft_s.append(tp)
+            k = k% len(ft_s)
+            ft_s = sorted(ft_s,key=lambda x : x[1])
+
+            #print(ft_s)
+            answer=ft_s[k][1]
+
+            break
+
     return answer
+
+
+print(solution([3, 1, 2], 5)) #1
+print(solution([1, 1000], 10)) #2
+print(solution([1,1,1,1], 4)) #-1
+print(solution([1,1,1,1,1,1], 1)) #2
+print(solution([4,2,3,6,7,1,5,8],16)) #3
+print(solution([4,2,3,6,7,1,5,8],27)) #5
+
+
+
+
+
+
+
+
 
 '''
 print(solution([3, 1, 2], 5)) #1
@@ -70,7 +105,9 @@ print(solution([4,2,3,6,7,1,5,8],27)) #5
 
 
 '''
-어렵다;;; 못품.
+어렵다;;;
+시간초과남....
+어떡하지...
 '''
 
 
