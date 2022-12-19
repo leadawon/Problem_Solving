@@ -18,12 +18,12 @@ import sys
 from collections import defaultdict
 n,k = map(int,sys.stdin.readline().split())
 
-isin = defaultdict(int)
+isin = defaultdict(lambda : -1)
 timedic = defaultdict(int)
 
 for i in range(n):
 	time,name = sys.stdin.readline().split()
-	if isin[name] == 0:
+	if isin[name] == -1:
 		h,m = map(int,time.split(":"))
 		isin[name] = 60*h+m
 	else:
@@ -32,7 +32,7 @@ for i in range(n):
 			timedic[name] += 60*h+m - isin[name]
 		else:
 			timedic[name] += 24*60 - isin[name] + 60*h+m
-		isin[name] = 0
+		isin[name] = -1
 cnt = 0
 for key,val in timedic.items():
 
